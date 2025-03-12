@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "go-echo9c4f60ef-74d3-49e9-9b9a-3be44305f07d.fullname" . }}
+  labels:
+    {{- include "go-echo9c4f60ef-74d3-49e9-9b9a-3be44305f07d.labels" . | nindent 4 }}
+  annotations:
+    {{ toYaml .Values.service.annotations | nindent 4 }}
+  namespace: {{ .Values.namespace }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.containerPort }}
+      protocol: TCP
+      name: svchttp
+  selector:
+    {{- include "go-echo9c4f60ef-74d3-49e9-9b9a-3be44305f07d.selectorLabels" . | nindent 6 }}
