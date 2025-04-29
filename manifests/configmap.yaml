@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: go-echo-config
+  namespace: devhub-fleet-cluster-e2e-test-id-2
+  labels:
+    app.kubernetes.io/name: go-echo
+    kubernetes.azure.com/generator: devhub
+data:
+  key1: value1
+  key2: value2
