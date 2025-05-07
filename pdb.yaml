@@ -1,0 +1,13 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: go-echo
+  labels:
+    app.kubernetes.io/name: go-echo
+    app.kubernetes.io/part-of: go-echo-project
+    kubernetes.azure.com/generator: draft
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: go-echo
