@@ -1,0 +1,8 @@
+image:
+  repository: "devhube2e2cb775bdd6774ebc92c2e0bd5e976786.azurecr.io/go-echo"
+  tag: "latest"
+  pullPolicy: "Always"
+service:
+  annotations: {}
+  type: LoadBalancer
+  port: "1323"
