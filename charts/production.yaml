@@ -1,0 +1,8 @@
+image:
+  repository: "devhube2e23382f75010f4951b539cd0349419351.azurecr.io/helmimage:latest"
+  tag: "latest"
+  pullPolicy: "Always"
+service:
+  annotations: {}
+  type: LoadBalancer
+  port: "1323"
