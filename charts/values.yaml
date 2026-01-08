@@ -1,0 +1,113 @@
+# Default values for go-echo6dec7a41-e7d5-4e67-90de-c516f026ad65.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 2
+
+namespace: devhub-fleet-cluster-e2e-test-id-1
+
+containerPort: 1323
+
+image:
+  repository: devhube2ef994ef518ac74022a154c094852a9e7f.azurecr.io/helmimage:latest
+  tag: latest
+  pullPolicy: Always
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+service:
+  annotations: {}
+  type: LoadBalancer
+  port: 1323
+
+resources:
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  limits:
+    cpu: "1"
+    memory: "1Gi"
+  requests:
+    cpu: "0.5"
+    memory: "0.5Gi"
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+livenessProbe:
+  tcpSocket:
+    port: 1323
+readinessProbe:
+  tcpSocket:
+    port: 1323
+  periodSeconds: 5
+  timeoutSeconds: 5
+  failureThreshold: 1
+  successThreshold: 1
+  initialDelaySeconds: 3
+startupProbe:
+  tcpSocket:
+    port: 1323
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
+  initialDelaySeconds: 0
+
+nodeSelector: {}
+
+tolerations: []
+
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: ScheduleAnyway
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/name: go-echo6dec7a41-e7d5-4e67-90de-c516f026ad65
+
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+    - weight: 100
+      podAffinityTerm:
+        topologyKey: kubernetes.io/hostname
+        labelSelector:
+          matchLabels:
+            app.kubernetes.io/name: go-echo6dec7a41-e7d5-4e67-90de-c516f026ad65
+
+securityContext:
+  seccompProfile:
+    type: RuntimeDefault
+  capabilities:
+    drop:
+      - ALL
+    add:
+      - SETPCAP
+      - MKNOD
+      - AUDIT_WRITE
+      - CHOWN
+      - DAC_OVERRIDE
+      - FOWNER
+      - FSETID
+      - KILL
+      - SETGID
+      - SETUID
+      - NET_BIND_SERVICE
+      - SYS_CHROOT
+      - SETFCAP
+      - SYS_PTRACE
+
+envVars:
+
+generatorLabel: devhub
